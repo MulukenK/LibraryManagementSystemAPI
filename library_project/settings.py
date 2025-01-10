@@ -23,10 +23,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-(1dgqcmkv@a9e)p3^=^^&hol)dc*^_p#4@qy9lj-99nsb&sh59'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['Muluken.pythonanywhere.com']
+ALLOWED_HOSTS = ['Muluken.pythonanywhere.com', '127.0.0.1', 'localhost']
 
+LOGIN_REDIRECT_URL = 'borrowing-history'
 
 # Application definition
 
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'library.apps.LibraryConfig',
     'rest_framework',
+    'rest_framework.authtoken',
     'django_filters'
 ]
 
@@ -131,5 +133,14 @@ AUTH_USER_MODEL = 'library.CustomUser'
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend',
-    ]
+    ],
+
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
 }

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import BookListCreateView, BookDetailView, UserListCreateView, UserDetailView
+from .views import BookListCreateView, BookDetailView, UserListCreateView, UserDetailView, BorrowingHistoryView
 from .views import CheckOutBookView, ReturnBookView, BookFilterListView
 
 urlpatterns = [
@@ -12,10 +12,16 @@ urlpatterns = [
     path('users/', UserListCreateView.as_view(), name='user-list-create'),
     path('users/<int:pk>/', UserDetailView.as_view(), name='user-detail'),
 
+    # Checkout and Return endpoints
     path('checkout/', CheckOutBookView.as_view(), name='checkout-book'),
-    path('return/<int:transaction_id>/', ReturnBookView.as_view(), name='return-book'),
+    path('return/<int:book_id>/', ReturnBookView.as_view(), name='return-book'),
+
+    # Borrow History endpoints
+    path('borrowing-history/', BorrowingHistoryView.as_view(), name='borrowing-history'),
 
     
 ]
+
+
 
 
